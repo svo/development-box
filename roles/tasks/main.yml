@@ -171,6 +171,13 @@
       when: is_laptop|succeeded
       become: yes
 
+    - name: Copy touchegg configuration
+      copy: src={{ item.source }} dest={{ item.destination }}
+      when: is_laptop|succeeded
+      with_items:
+      - {source: touchegg.conf, destination: ~/.config/touchegg/touchegg.conf}
+      - {source: xprofile, destination: ~/.xprofile}
+
     - name: Determine if nVidia graphics card
       shell: hwinfo --gfxcard | fgrep "Model:" | fgrep -i nvidia
       register: is_nvidia
