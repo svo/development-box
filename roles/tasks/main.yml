@@ -27,6 +27,10 @@
       apt: pkg=vlc
       become: yes
 
+    - name: Install gnote note taking application
+      apt: pkg=gnote
+      become: yes
+
     - name: Install Address Book
       apt: pkg=address-book-app
       become: yes
@@ -183,7 +187,7 @@
       register: is_nvidia
       ignore_errors: yes
 
-    - name: Install current nVidia drivers
-      apt: pkg=nvidia-367
+    - name: Install nVidia drivers
+      apt: pkg=nvidia-current
       when: is_nvidia|succeeded
       become: yes
