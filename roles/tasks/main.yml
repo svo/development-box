@@ -182,14 +182,8 @@
       shell: hwinfo --gfxcard | fgrep "Model:" | fgrep -i nvidia
       register: is_nvidia
       ignore_errors: yes
-      tags:
-      - monitoring
-      - run
 
     - name: Install current nVidia drivers
-      apt: pkg=nvidia-current
+      apt: pkg=nvidia-367
       when: is_nvidia|succeeded
       become: yes
-      tags:
-      - monitoring
-      - run
