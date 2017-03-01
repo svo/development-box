@@ -187,6 +187,11 @@
       register: is_nvidia
       ignore_errors: yes
 
+    - name: Install nVidia ppa
+      apt_repository: repo='ppa:graphics-drivers/ppa' state=present
+      when: is_nvidia|succeeded
+      become: yes
+
     - name: Install nVidia drivers
       apt: pkg=nvidia-current
       when: is_nvidia|succeeded
