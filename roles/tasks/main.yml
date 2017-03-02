@@ -177,8 +177,8 @@
       - {source: touchegg.conf, destination: ~/.config/touchegg/touchegg.conf}
       - {source: xprofile, destination: ~/.xprofile}
 
-    - name: Install nVidia ppa
-      apt_repository: repo='ppa:graphics-drivers/ppa' state=present
+    - name: Remove graphics ppa
+      apt_repository: repo='ppa:graphics-drivers/ppa' state=absent
       when: is_nvidia|succeeded
       become: yes
 
