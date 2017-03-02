@@ -104,22 +104,12 @@
 
     - name: Download .deb
       get_url: url={{ item.url }} dest=~/Installs/{{ item.name }}
-      with_items:
-      - {url: "http://download.virtualbox.org/virtualbox/5.1.14/virtualbox-5.1_5.1.14-112924~Ubuntu~xenial_amd64.deb", name: virtualbox-5.1_5.1.14-112924~Ubuntu~xenial_amd64.deb}
-      - {url: "https://releases.hashicorp.com/vagrant/1.9.1/vagrant_1.9.1_x86_64.deb", name: vagrant_1.9.1_x86_64.deb}
-      - {url: "https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb", name: dropbox_2015.10.28_amd64.deb}
-      - {url: "https://github.com/atom/atom/releases/download/v1.14.1/atom-amd64.deb", name: atom-amd64.deb}
-      - {url: "https://github.com/saenzramiro/rambox/releases/download/0.5.3/Rambox_0.5.3-x64.deb", name: Rambox_0.5.3-x64.deb}
+      with_items: "{{ installs }}"
 
     - name: Install .deb
-      apt: deb=/tmp/Installs/{{ item }}
+      apt: deb=/tmp/Installs/{{ item.name }}
       become: yes
-      with_items:
-      - virtualbox-5.1_5.1.14-112924~Ubuntu~xenial_amd64.deb
-      - vagrant_1.9.1_x86_64.deb
-      - dropbox_2015.10.28_amd64.deb
-      - atom-amd64.deb
-      - Rambox_0.5.3-x64.deb
+      with_items: "{{ installs }}"
 
     - name: Get JetBrains toolbox
       get_url: url=https://download-cf.jetbrains.com/toolbox/jetbrains-toolbox-1.1.2143.tar.gz dest=~/Installs/jetbrains-toolbox-1.1.2143.tar.gz
