@@ -1,3 +1,13 @@
+    - name: Determine if laptop
+      command: laptop-detect
+      register: is_laptop
+      ignore_errors: yes
+
+    - name: Determine if nVidia graphics card
+      shell: hwinfo --gfxcard | fgrep "Model:" | fgrep -i nvidia
+      register: is_nvidia
+      ignore_errors: yes
+
     - name: Create home directories
       file: path=~/{{ item }} state=directory
       with_items:
@@ -150,11 +160,6 @@
     - name: Add rbenv to .bashrc
       lineinfile: dest=~/.bashrc line='eval "$(rbenv init -)"'
 
-    - name: Determine if laptop
-      command: laptop-detect
-      register: is_laptop
-      ignore_errors: yes
-
     - name: Install Laptop Mode Tools
       apt: pkg=laptop-mode-tools
       when: is_laptop|succeeded
@@ -172,17 +177,12 @@
       - {source: touchegg.conf, destination: ~/.config/touchegg/touchegg.conf}
       - {source: xprofile, destination: ~/.xprofile}
 
-    - name: Determine if nVidia graphics card
-      shell: hwinfo --gfxcard | fgrep "Model:" | fgrep -i nvidia
-      register: is_nvidia
-      ignore_errors: yes
-
     - name: Install nVidia ppa
       apt_repository: repo='ppa:graphics-drivers/ppa' state=present
       when: is_nvidia|succeeded
       become: yes
 
-    - name: Install nVidia drivers
+    - name: Install nVidia drivers for laptop
       apt: pkg=nvidia-current
-      when: is_nvidia|succeeded
+      when: is_nvidia and is_laptop|succeeded
       become: yes
