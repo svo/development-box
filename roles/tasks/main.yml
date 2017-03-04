@@ -76,6 +76,10 @@
       apt: pkg=terminator
       become: yes
 
+    - name: Install HTTPie cURL wrapper
+      apt: pkg=httpie
+      become: yes
+
     - name: Copy terminator configuration
       copy: src=terminator.config dest=~/.config/terminator/config
 
