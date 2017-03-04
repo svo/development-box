@@ -87,6 +87,10 @@
       apt: pkg=tmux
       become: yes
 
+    - name: Install icdiff side by side diff tool
+      pip: name=icdiff
+      become: yes
+
     - name: Install SSH server
       apt: pkg=openssh-server
       become: yes
