@@ -167,6 +167,14 @@
     - name: Add rbenv to .bashrc
       lineinfile: dest=~/.bashrc line='eval "$(rbenv init -)"'
 
+    - name: Install global NPM packages
+      npm: name={{ item.name }} version={{ item.version }} global=yes
+      become: yes
+      with_items:
+      - {name: raml-cop, version: 3.0.0}
+      - {name: raml2html, version: 5.0.0}
+      - {name: gulp-cli, version: 1.2.2}
+
     - name: Install Laptop Mode Tools
       apt: pkg=laptop-mode-tools
       when: is_laptop|succeeded
