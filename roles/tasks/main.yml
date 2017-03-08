@@ -134,6 +134,7 @@
       - {repo: "https://github.com/pearofducks/ansible-vim.git", dest: ansible-vim}
       - {repo: "https://github.com/plasticboy/vim-markdown.git", dest: vim-markdown}
       - {repo: "https://github.com/IN3D/vim-raml.git", dest: vim-raml}
+      - {repo: "https://github.com/airblade/vim-gitgutter.git", dest: vim-gitgutter}
 
     - name: Update vim configuration
       lineinfile: dest=~/.vimrc line="{{ item }}"
