@@ -8,6 +8,11 @@
       register: is_nvidia
       ignore_errors: yes
 
+    - name: Determine if intel graphics card
+      shell: hwinfo --gfxcard | fgrep "Model:" | fgrep -i intel
+      register: is_intel_graphics
+      ignore_errors: yes
+
     - name: Determine product name
       shell: dmidecode -s system-product-name
       become: yes
@@ -128,6 +133,7 @@
       with_items:
       - {repo: "https://github.com/pearofducks/ansible-vim.git", dest: ansible-vim}
       - {repo: "https://github.com/plasticboy/vim-markdown.git", dest: vim-markdown}
+      - {repo: "https://github.com/IN3D/vim-raml.git", dest: vim-raml}
 
     - name: Update vim configuration
       lineinfile: dest=~/.vimrc line="{{ item }}"
@@ -209,7 +215,7 @@
 
     - name: Install bumblebee nvidia
       apt: pkg={{ item }}
-      when: is_nvidia and is_laptop|succeeded
+      when: is_nvidia|succeeded and is_intel_graphics|succeeded and is_laptop|succeeded
       become: yes
       with_items:
       - primus
@@ -218,7 +224,7 @@
       - linux-headers-generic
       - xserver-xorg-video-intel
 
-    - name: Copy backlight fix
+    - name: Copy backlight fix for Precision 5510 running 1.2.19 bios (http://en.community.dell.com/techcenter/os-applications/f/4613/p/19985320/20941268#20941268)
       copy: src=fixbacklight dest=/lib/systemd/system-sleep/fixbacklight mode=755
       when: product_name.stdout == "Precision 5510" and bios_version.stdout == "1.2.19"
       become: yes
