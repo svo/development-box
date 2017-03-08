@@ -3,6 +3,11 @@
       register: is_laptop
       ignore_errors: yes
 
+    - name: Determine if nVidia graphics card
+      shell: hwinfo --gfxcard | fgrep "Model:" | fgrep -i nvidia
+      register: is_nvidia
+      ignore_errors: yes
+
     - name: Create home directories
       file: path=~/{{ item }} state=directory
       with_items:
@@ -191,3 +196,14 @@
       with_items:
       - {source: touchegg.conf, destination: ~/.config/touchegg/touchegg.conf}
       - {source: xprofile, destination: ~/.xprofile}
+
+    - name: Install bumblebee nvidia
+      apt: pkg={{ item }}
+      when: is_nvidia and is_laptop|succeeded
+      become: yes
+      with_items:
+      - primus
+      - bumblebee
+      - bumblebee-nvidia
+      - linux-headers-generic
+      - xserver-xorg-video-intel
