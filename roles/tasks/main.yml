@@ -196,6 +196,13 @@
       - {name: raml2html, version: 5.0.0}
       - {name: gulp-cli, version: 1.2.2}
 
+    - name: Install Hardware Enablement (HWE) stack
+      apt: pkg={{ item }}
+      become: yes
+      with_items:
+      - linux-generic-hwe-16.04
+      - xserver-xorg-hwe-16.04
+
     - name: Install Laptop Mode Tools
       apt: pkg=laptop-mode-tools
       when: is_laptop|succeeded
@@ -222,7 +229,7 @@
       - bumblebee
       - bumblebee-nvidia
       - linux-headers-generic
-      - xserver-xorg-video-intel
+      - xserver-xorg-video-intel-hwe-16.04
 
     - name: Copy backlight fix for Precision 5510 running 1.2.19 bios (http://en.community.dell.com/techcenter/os-applications/f/4613/p/19985320/20941268#20941268)
       copy: src=fixbacklight dest=/lib/systemd/system-sleep/fixbacklight mode=755
