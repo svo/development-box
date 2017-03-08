@@ -44,6 +44,12 @@
       - python-software-properties
       - python-gpgme
 
+    - name: Setup workspaces
+      command: gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ {{ item.key }} {{ item.value }}
+      with_items:
+      - {key: hsize, value: 2}
+      - {key: vsize, value: 2}
+
     - name: Remove Totem media player
       apt: pkg=totem state=absent
       become: yes
