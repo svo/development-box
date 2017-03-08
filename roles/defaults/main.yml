@@ -1,6 +1,6 @@
   installs:
     - {url: "http://download.virtualbox.org/virtualbox/5.1.14/virtualbox-5.1_5.1.14-112924~Ubuntu~xenial_amd64.deb", name: virtualbox-5.1_5.1.14-112924~Ubuntu~xenial_amd64.deb}
-    - {url: "https://releases.hashicorp.com/vagrant/1.9.1/vagrant_1.9.1_x86_64.deb", name: vagrant_1.9.1_x86_64.deb}
+    - {url: "https://releases.hashicorp.com/vagrant/1.9.2/vagrant_1.9.2_x86_64.deb", name: vagrant_1.9.2_x86_64.deb}
     - {url: "https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb", name: dropbox_2015.10.28_amd64.deb}
     - {url: "https://github.com/atom/atom/releases/download/v1.14.1/atom-amd64.deb", name: atom-amd64.deb}
     - {url: "https://github.com/saenzramiro/rambox/releases/download/0.5.3/Rambox_0.5.3-x64.deb", name: Rambox_0.5.3-x64.deb}
