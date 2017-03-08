@@ -8,6 +8,16 @@
       register: is_nvidia
       ignore_errors: yes
 
+    - name: Determine product name
+      shell: dmidecode -s system-product-name
+      become: yes
+      register: product_name
+
+    - name: Determine bios version
+      shell: dmidecode -s bios-version
+      become: yes
+      register: bios_version
+
     - name: Create home directories
       file: path=~/{{ item }} state=directory
       with_items:
@@ -207,3 +217,8 @@
       - bumblebee-nvidia
       - linux-headers-generic
       - xserver-xorg-video-intel
+
+    - name: Copy backlight fix
+      copy: src=fixbacklight dest=/lib/systemd/system-sleep/fixbacklight mode=755
+      when: product_name.stdout == "Precision 5510" and bios_version.stdout == "1.2.19"
+      become: yes
