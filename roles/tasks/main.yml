@@ -181,11 +181,11 @@
     - name: Copy bashrc source file
       copy: src=bashrc dest=/tmp/bashrc
 
-    - name: Get .bashrc content 
+    - name: Get .bashrc content
       shell: cat /tmp/bashrc
       register: bashrc_content
 
-    - name: Update .bashrc 
+    - name: Update .bashrc
       blockinfile:
         dest: ~/.bashrc
         backup: yes
