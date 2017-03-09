@@ -238,7 +238,9 @@
       - linux-headers-generic
       - xserver-xorg-video-intel-hwe-16.04
 
-    - name: Copy backlight fix for Precision 5510 running 1.2.19 bios (http://en.community.dell.com/techcenter/os-applications/f/4613/p/19985320/20941268#20941268)
-      copy: src=fixbacklight dest=/lib/systemd/system-sleep/fixbacklight mode=755
-      when: product_name.stdout == "Precision 5510" and bios_version.stdout == "1.2.19"
+    - name: Remove suspend temporary fix
+      file: dest={{ item }} state=absent
       become: yes
+      with_items:
+      - /var/lib/systemd/save_intel_reg_pwm_granuality
+      - /lib/systemd/system-sleep/fixbacklight
