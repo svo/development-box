@@ -78,6 +78,14 @@
       apt: pkg=chromium-browser
       become: yes
 
+    - name: Remove transmission BitTorrent client
+      apt: pkg=transmission-gtk state=absent
+      become: yes
+
+    - name: Install Deluge BitTorrent client
+      apt: pkg=deluge
+      become: yes
+
     - name: Install git source control
       apt: pkg=git-core
       become: yes
