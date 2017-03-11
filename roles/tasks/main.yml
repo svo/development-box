@@ -66,6 +66,10 @@
       apt: pkg=rhythmbox state=absent
       become: yes
 
+    - name: Installing libimobiledevice-utils for iPhone
+      apt: pkg=libimobiledevice-utils
+      become: yes
+
     - name: Install gnote note taking application
       apt: pkg=gnote
       become: yes
