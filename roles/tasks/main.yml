@@ -58,6 +58,10 @@
       apt: pkg=vlc
       become: yes
 
+    - name: Remove rhythmbox music player
+      apt: pkg=rhythmbox state=absent
+      become: yes
+
     - name: Install gnote note taking application
       apt: pkg=gnote
       become: yes
