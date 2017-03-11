@@ -58,6 +58,10 @@
       apt: pkg=vlc
       become: yes
 
+    - name: Install Clementine music player
+      apt: pkg=clementine
+      become: yes
+
     - name: Remove rhythmbox music player
       apt: pkg=rhythmbox state=absent
       become: yes
