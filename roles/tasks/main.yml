@@ -122,6 +122,10 @@
       apt: pkg=terminator
       become: yes
 
+    - name: Install Midnight Commander file manager
+      apt: pkg=mc
+      become: yes
+
     - name: Copy terminator configuration
       copy: src=terminator.config dest=~/.config/terminator/config
 
