@@ -251,15 +251,6 @@
       - {source: touchegg.conf, destination: ~/.config/touchegg/touchegg.conf}
       - {source: xprofile, destination: ~/.xprofile}
 
-    - name: Remove bumblebee nvidia
-      apt: pkg={{ item }} state=absent purge=yes
-      when: is_nvidia|succeeded and is_intel_graphics|succeeded and is_laptop|succeeded
-      become: yes
-      with_items:
-      - primus
-      - bumblebee
-      - bumblebee-nvidia
-
     - name: Install video drivers
       apt: pkg={{ item }}
       when: is_nvidia|succeeded and is_intel_graphics|succeeded and is_laptop|succeeded
