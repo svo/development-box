@@ -43,6 +43,7 @@
       - python-pip
       - python-software-properties
       - python-gpgme
+      - linux-headers-generic
 
     - name: Setup workspaces
       command: gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ {{ item.key }} {{ item.value }}
@@ -250,13 +251,20 @@
       - {source: touchegg.conf, destination: ~/.config/touchegg/touchegg.conf}
       - {source: xprofile, destination: ~/.xprofile}
 
-    - name: Install bumblebee nvidia
-      apt: pkg={{ item }}
+    - name: Remove bumblebee nvidia
+      apt: pkg={{ item }} state=absent purge=yes
       when: is_nvidia|succeeded and is_intel_graphics|succeeded and is_laptop|succeeded
       become: yes
       with_items:
       - primus
       - bumblebee
       - bumblebee-nvidia
-      - linux-headers-generic
+
+    - name: Install video drivers
+      apt: pkg={{ item }}
+      when: is_nvidia|succeeded and is_intel_graphics|succeeded and is_laptop|succeeded
+      become: yes
+      with_items:
+      - nvidia-prime
+      - nvidia-367
       - xserver-xorg-video-intel-hwe-16.04
