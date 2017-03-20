@@ -43,6 +43,7 @@
       - python-pip
       - python-software-properties
       - python-gpgme
+      - gdebi
       - linux-headers-generic
 
     - name: Setup workspaces
@@ -257,9 +258,26 @@
 
     - name: Install video drivers
       apt: pkg={{ item }}
-      when: is_nvidia|succeeded and is_intel_graphics|succeeded and is_laptop|succeeded
+      when: is_nvidia|succeeded and is_laptop|succeeded
       become: yes
       with_items:
-      - nvidia-prime
       - nvidia-367
-      - xserver-xorg-video-intel-hwe-16.04
+      - nvidia-prime
+
+    - name: Download intel graphics update tool
+      get_url: url={{ item.url }} dest=~/Installs/{{ item.name }}
+      when: is_intel_graphics|succeeded and is_laptop|succeeded
+      with_items:
+      - {url: "https://download.01.org/gfx/ubuntu/16.04/main/pool/main/i/intel-graphics-update-tool/intel-graphics-update-tool_2.0.2_amd64.deb", name: intel-graphics-update-tool_2.0.2_amd64.deb}
+
+    - name: Install intel graphics update tool
+      command: gdebi -n /tmp/Installs/{{ item.name }}
+      when: is_intel_graphics|succeeded and is_laptop|succeeded
+      become: yes
+      with_items:
+      - {name: intel-graphics-update-tool_2.0.2_amd64.deb}
+
+    - name: Install intel graphics update tool
+      command: prime-select intel
+      when: is_intel_graphics|succeeded and is_laptop|succeeded
+      become: yes

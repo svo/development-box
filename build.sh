@@ -11,4 +11,5 @@ ansible-playbook -i "localhost," -c local playbook.yml
 
 sudo apt -y autoremove
 
+sudo intel-graphics-update-tool &
 jetbrains-toolbox &
