@@ -276,6 +276,10 @@
       - nvidia-367
       - nvidia-prime
 
+    - name: Add intel graphics apt key
+      apt_key: url=https://download.01.org/gfx/RPM-GPG-KEY-ilg-4
+      become: yes
+
     - name: Download intel graphics update tool
       get_url: url={{ item.url }} dest=~/Installs/{{ item.name }}
       when: is_intel_graphics|succeeded and is_laptop|succeeded
