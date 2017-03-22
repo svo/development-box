@@ -131,6 +131,16 @@
       pip: name=ansible version=2.1.1.0
       become: yes
 
+    - name: Download Terraform installation resource
+      get_url: url=https://releases.hashicorp.com/terraform/0.9.1/terraform_0.9.1_linux_amd64.zip dest=~/Installs/terraform_0.9.1_linux_amd64.zip
+
+    - name: Unarchive Terraform
+      unarchive: src=~/Installs/terraform_0.9.1_linux_amd64.zip dest=/tmp
+
+    - name: Install Terraform
+      copy: src=/tmp/terraform dest=/usr/local/bin remote_src=yes mode=0755
+      become: yes
+
     - name: Install terminator terminal emulator
       apt: pkg=terminator
       become: yes
