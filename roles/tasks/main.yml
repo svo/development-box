@@ -303,7 +303,7 @@
       with_items:
       - {name: intel-graphics-update-tool_2.0.2_amd64.deb}
 
-    - name: Install intel graphics update tool
+    - name: Set intel graphics as default
       command: prime-select intel
       when: is_intel_graphics|succeeded and is_laptop|succeeded
       become: yes
