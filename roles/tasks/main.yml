@@ -141,6 +141,10 @@
       copy: src=/tmp/terraform dest=/usr/local/bin remote_src=yes mode=0755
       become: yes
 
+    - name: Install awscli
+      pip: name=awscli
+      become: yes
+
     - name: Install terminator terminal emulator
       apt: pkg=terminator
       become: yes
