@@ -94,3 +94,6 @@ else \
   echo " '$Yellow$PathShort$Color_Off'\$ "; \
 fi)'
 
+if [ -f ~/Documents/workspace/aws-idp/adfs_authenticate.sh ]; then
+  source ~/Documents/workspace/aws-idp/adfs_authenticate.sh
+fi

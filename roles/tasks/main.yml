@@ -145,6 +145,13 @@
       pip: name=awscli
       become: yes
 
+    - name: Install AWS IDP requirements
+      apt: pkg={{ item }}
+      with_items:
+      - libxml2-utils
+      - jq
+      become: yes
+
     - name: Install terminator terminal emulator
       apt: pkg=terminator
       become: yes
