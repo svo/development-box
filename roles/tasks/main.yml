@@ -294,7 +294,7 @@
       when: is_nvidia|succeeded and is_laptop|succeeded
       become: yes
       with_items:
-      - nvidia-367
+      - nvidia-375
       - nvidia-prime
 
     - name: Add intel graphics apt key
