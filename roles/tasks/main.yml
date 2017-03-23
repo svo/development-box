@@ -28,6 +28,7 @@
       with_items:
       - Installs
       - .config/terminator
+      - .config/touchegg
 
     - name: Symlink ~/Installs
       file: src=~/Installs dest=/tmp/Installs state=link
@@ -43,8 +44,6 @@
       - python-pip
       - python-software-properties
       - python-gpgme
-      - gdebi
-      - linux-headers-generic
 
     - name: Setup workspaces
       command: gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ {{ item.key }} {{ item.value }}
@@ -296,23 +295,6 @@
       with_items:
       - nvidia-375
       - nvidia-prime
-
-    - name: Add intel graphics apt key
-      apt_key: url=https://download.01.org/gfx/RPM-GPG-KEY-ilg-4
-      become: yes
-
-    - name: Download intel graphics update tool
-      get_url: url={{ item.url }} dest=~/Installs/{{ item.name }}
-      when: is_intel_graphics|succeeded and is_laptop|succeeded
-      with_items:
-      - {url: "https://download.01.org/gfx/ubuntu/16.04/main/pool/main/i/intel-graphics-update-tool/intel-graphics-update-tool_2.0.2_amd64.deb", name: intel-graphics-update-tool_2.0.2_amd64.deb}
-
-    - name: Install intel graphics update tool
-      command: gdebi -n /tmp/Installs/{{ item.name }}
-      when: is_intel_graphics|succeeded and is_laptop|succeeded
-      become: yes
-      with_items:
-      - {name: intel-graphics-update-tool_2.0.2_amd64.deb}
 
     - name: Set intel graphics as default
       command: prime-select intel
