@@ -276,6 +276,11 @@
       when: is_laptop|succeeded
       become: yes
 
+    - name: Configure Laptop Mode Tools to avoid autosuspend of usbhid
+      lineinfile: dest=/etc/laptop-mode/conf.d/runtime-pm.conf regexp='AUTOSUSPEND_RUNTIME_DEVTYPE_BLACKLIST.*' line='AUTOSUSPEND_RUNTIME_DEVTYPE_BLACKLIST="usbhid"'
+      when: is_laptop|succeeded
+      become: yes
+
     - name: Install multitouch gesture recognizer
       apt: pkg=touchegg
       when: is_laptop|succeeded
