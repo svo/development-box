@@ -75,6 +75,11 @@
       apt: pkg=rhythmbox state=absent
       become: yes
 
+    - name: Install k3b optical disk authoring tool
+      apt: pkg=k3b
+      when: is_laptop|failed
+      become: yes
+
     - name: Installing libimobiledevice-utils for iPhone
       apt: pkg=libimobiledevice-utils
       become: yes
