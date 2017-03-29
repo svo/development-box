@@ -139,7 +139,7 @@
       get_url: url=https://releases.hashicorp.com/terraform/0.9.1/terraform_0.9.1_linux_amd64.zip dest=~/Installs/terraform_0.9.1_linux_amd64.zip
 
     - name: Unarchive Terraform
-      unarchive: src=~/Installs/terraform_0.9.1_linux_amd64.zip dest=/tmp
+      unarchive: src=~/Installs/terraform_0.9.1_linux_amd64.zip remote_src=yes dest=/tmp
 
     - name: Install Terraform
       copy: src=/tmp/terraform dest=/usr/local/bin remote_src=yes mode=0755
@@ -160,12 +160,12 @@
       apt: pkg=terminator
       become: yes
 
+    - name: Copy terminator configuration
+      copy: src=terminator.config dest=~/.config/terminator/config
+
     - name: Install Midnight Commander file manager
       apt: pkg=mc
       become: yes
-
-    - name: Copy terminator configuration
-      copy: src=terminator.config dest=~/.config/terminator/config
 
     - name: Install HTTPie cURL wrapper
       apt: pkg=httpie
@@ -226,10 +226,10 @@
       get_url: url=https://download-cf.jetbrains.com/toolbox/jetbrains-toolbox-1.1.2143.tar.gz dest=~/Installs/jetbrains-toolbox-1.1.2143.tar.gz
 
     - name: Extract JetBrains toolbox
-      unarchive: src=~/Installs/jetbrains-toolbox-1.1.2143.tar.gz dest=/tmp
+      unarchive: src=~/Installs/jetbrains-toolbox-1.1.2143.tar.gz remote_src=yes dest=/tmp
 
     - name: Copy JetBrains toolbox
-      copy: src=/tmp/jetbrains-toolbox-1.1.2143/jetbrains-toolbox dest=/usr/bin/jetbrains-toolbox mode=0755
+      copy: src=/tmp/jetbrains-toolbox-1.1.2143/jetbrains-toolbox remote_src=yes dest=/usr/bin/jetbrains-toolbox mode=0755
       become: yes
 
     - name: Install GIMP photo editor
