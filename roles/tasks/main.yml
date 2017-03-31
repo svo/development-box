@@ -171,6 +171,10 @@
       apt: pkg=httpie
       become: yes
 
+    - name: Install command line XML processing tools
+      apt: pkg=xml-twig-tools
+      become: yes
+
     - name: Install tmux terminal multiplexer
       apt: pkg=tmux
       become: yes
