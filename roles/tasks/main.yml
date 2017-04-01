@@ -167,10 +167,6 @@
       apt: pkg=mc
       become: yes
 
-    - name: Install HTTPie cURL wrapper
-      apt: pkg=httpie
-      become: yes
-
     - name: Install command line XML processing tools
       apt: pkg=xml-twig-tools
       become: yes
