@@ -110,31 +110,6 @@
       apt: pkg=subversion
       become: yes
 
-    - name: Install ansible configuration management
-      pip: name=ansible version=2.1.1.0
-      become: yes
-
-    - name: Download Terraform installation resource
-      get_url: url=https://releases.hashicorp.com/terraform/0.9.1/terraform_0.9.1_linux_amd64.zip dest=~/Installs/terraform_0.9.1_linux_amd64.zip
-
-    - name: Unarchive Terraform
-      unarchive: src=~/Installs/terraform_0.9.1_linux_amd64.zip remote_src=yes dest=/tmp
-
-    - name: Install Terraform
-      copy: src=/tmp/terraform dest=/usr/local/bin remote_src=yes mode=0755
-      become: yes
-
-    - name: Install awscli
-      pip: name=awscli
-      become: yes
-
-    - name: Install AWS IDP requirements
-      apt: pkg={{ item }}
-      with_items:
-      - libxml2-utils
-      - jq
-      become: yes
-
     - name: Install terminator terminal emulator
       apt: pkg=terminator
       become: yes
@@ -183,7 +158,6 @@
     - name: Install vim plugins
       git: repo={{ item.repo }} dest=~/.vim/bundle/{{ item.dest }}
       with_items:
-      - {repo: "https://github.com/pearofducks/ansible-vim.git", dest: ansible-vim}
       - {repo: "https://github.com/plasticboy/vim-markdown.git", dest: vim-markdown}
       - {repo: "https://github.com/IN3D/vim-raml.git", dest: vim-raml}
 

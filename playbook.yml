@@ -6,6 +6,7 @@
     - environment-core
     - environment-monitoring
     - environment-docker
+    - environment-configuration-management
     - environment-java
     - environment-clojure
     - environment-nodejs
