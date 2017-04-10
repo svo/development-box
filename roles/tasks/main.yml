@@ -59,27 +59,6 @@
       apt: pkg=autokey-gtk
       become: yes
 
-    - name: Remove Totem media player
-      apt: pkg=totem state=absent
-      become: yes
-
-    - name: Install VLC media player
-      apt: pkg=vlc
-      become: yes
-
-    - name: Install Clementine music player
-      apt: pkg=clementine
-      become: yes
-
-    - name: Remove rhythmbox music player
-      apt: pkg=rhythmbox state=absent
-      become: yes
-
-    - name: Install k3b optical disk authoring tool
-      apt: pkg=k3b
-      when: is_laptop|failed
-      become: yes
-
     - name: Installing libimobiledevice-utils for iPhone
       apt: pkg=libimobiledevice-utils
       become: yes
@@ -230,14 +209,6 @@
 
     - name: Copy JetBrains toolbox
       copy: src=/tmp/jetbrains-toolbox-1.1.2143/jetbrains-toolbox remote_src=yes dest=/usr/bin/jetbrains-toolbox mode=0755
-      become: yes
-
-    - name: Install GIMP photo editor
-      apt: pkg=gimp
-      become: yes
-
-    - name: Install shutter screenshot tool
-      apt: pkg=shutter
       become: yes
 
     - name: Install PlantUML diagramming tool

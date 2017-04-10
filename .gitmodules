@@ -16,3 +16,6 @@
 [submodule "roles/environment-java"]
 	path = roles/environment-java
 	url = git@github.com:svo/environment-java.git
+[submodule "roles/environment-media"]
+	path = roles/environment-media
+	url = git@github.com:svo/environment-media.git
