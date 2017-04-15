@@ -245,7 +245,7 @@
 
     - name: Install video drivers
       apt: pkg={{ item }}
-      when: is_nvidia|succeeded
+      when: is_nvidia|succeeded and is_laptop|succeeded
       become: yes
       with_items:
       - nvidia-375
