@@ -133,6 +133,10 @@
       pip: name=icdiff
       become: yes
 
+    - name: Install hfsprogs for working with HFS/HFS+ disk formats
+      apt: pkg=hfsprogs
+      become: yes
+
     - name: Install SSH server
       apt: pkg=openssh-server
       become: yes
