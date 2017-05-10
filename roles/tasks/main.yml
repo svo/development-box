@@ -177,6 +177,10 @@
     - name: Download .deb
       get_url: url={{ item.url }} dest=~/Installs/{{ item.name }}
       with_items: "{{ installs }}"
+      register: get_url_result
+      until: get_url_result | succeeded
+      retries: 3
+      delay: 1
 
     - name: Install .deb
       apt: deb=/tmp/Installs/{{ item.name }}
@@ -185,6 +189,10 @@
 
     - name: Get JetBrains toolbox
       get_url: url=https://download-cf.jetbrains.com/toolbox/jetbrains-toolbox-1.1.2143.tar.gz dest=~/Installs/jetbrains-toolbox-1.1.2143.tar.gz
+      register: jet_brains_get_url_result
+      until: jet_brains_get_url_result | succeeded
+      retries: 3
+      delay: 1
 
     - name: Extract JetBrains toolbox
       unarchive: src=~/Installs/jetbrains-toolbox-1.1.2143.tar.gz remote_src=yes dest=/tmp
@@ -197,19 +205,11 @@
       apt: pkg=plantuml
       become: yes
 
-    - name: Copy bashrc source file
-      copy: src=bashrc dest=/tmp/bashrc
-
-    - name: Get .bashrc content
-      shell: cat /tmp/bashrc
-      register: bashrc_content
-
     - name: Update .bashrc
       blockinfile:
         dest: ~/.bashrc
         backup: yes
-        block: |
-          {{ bashrc_content.stdout }}
+        block: "{{ lookup('file', 'bashrc') }}"
 
     - name: Add rbenv to .bashrc
       lineinfile: dest=~/.bashrc line='eval "$(rbenv init -)"'
@@ -267,6 +267,10 @@
     - name: Download intel linux graphics update tool .deb
       get_url: url=https://download.01.org/gfx/ubuntu/16.04/main/pool/main/i/intel-graphics-update-tool/intel-graphics-update-tool_2.0.2_amd64.deb dest=~/Installs/intel-graphics-update-tool_2.0.2_amd64.deb
       when: is_intel_graphics|succeeded
+      register: intel_graphics_get_url_result
+      until: intel_graphics_get_url_result | succeeded
+      retries: 3
+      delay: 1
 
     - name: Install intel linux graphics update tool
       apt: deb=/tmp/Installs/intel-graphics-update-tool_2.0.2_amd64.deb
