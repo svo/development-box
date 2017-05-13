@@ -259,24 +259,6 @@
       - nvidia-375
       - nvidia-prime
 
-    - name: Setup intel linux graphics update tool apt key
-      apt_key: url=https://download.01.org/gfx/RPM-GPG-KEY-ilg-4 validate_certs=no
-      when: is_intel_graphics|succeeded
-      become: yes
-
-    - name: Download intel linux graphics update tool .deb
-      get_url: url=https://download.01.org/gfx/ubuntu/16.04/main/pool/main/i/intel-graphics-update-tool/intel-graphics-update-tool_2.0.2_amd64.deb dest=~/Installs/intel-graphics-update-tool_2.0.2_amd64.deb
-      when: is_intel_graphics|succeeded
-      register: intel_graphics_get_url_result
-      until: intel_graphics_get_url_result | succeeded
-      retries: 3
-      delay: 1
-
-    - name: Install intel linux graphics update tool
-      apt: deb=/tmp/Installs/intel-graphics-update-tool_2.0.2_amd64.deb
-      when: is_intel_graphics|succeeded
-      become: yes
-
     - name: Set intel graphics as default
       command: prime-select intel
       when: is_intel_graphics|succeeded and is_nvidia|succeeded and is_laptop|succeeded
