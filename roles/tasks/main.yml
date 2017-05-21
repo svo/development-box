@@ -95,6 +95,10 @@
       apt: pkg=deluge
       become: yes
 
+    - name: Install uGet download manager
+      apt: pkg=uget
+      become: yes
+
     - name: Install git source control
       apt: pkg=git-core
       become: yes
