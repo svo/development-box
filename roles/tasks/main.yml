@@ -175,7 +175,7 @@
       - let g:vim_markdown_folding_style_pythonic = 1
 
     - name: Download .deb
-      get_url: url={{ item.url }} dest=~/Installs/{{ item.name }}
+      get_url: url={{ item.url }} dest=~/Installs/{{ item.name }} checksum={{ item.sha }}
       with_items: "{{ installs }}"
       register: get_url_result
       until: get_url_result | succeeded
