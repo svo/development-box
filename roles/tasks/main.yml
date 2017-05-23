@@ -89,6 +89,14 @@
       apt: pkg=chromium-browser
       become: yes
 
+    - name: Add Tor Browser repository
+      apt_repository: repo="ppa:webupd8team/tor-browser" update_cache=yes
+      become: yes
+
+    - name: Install Tor Browser web browser
+      apt: pkg=tor-browser
+      become: yes
+
     - name: Remove transmission BitTorrent client
       apt: pkg=transmission-gtk state=absent
       become: yes
