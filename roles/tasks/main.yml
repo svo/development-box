@@ -205,15 +205,19 @@
       become: yes
       with_items: "{{ installs }}"
 
-    - name: Add ethereum repository
-      apt_repository: repo="ppa:ethereum/ethereum" update_cache=yes
+    - name: Add ethereum repositories
+      apt_repository: repo={{ item }} update_cache=yes validate_certs=no
       become: yes
+      with_items:
+      - ppa:ethereum/ethereum
+      - ppa:ethereum/ethereum-qt
 
     - name: Install ethereum CLI tools
       apt: pkg={{ item }}
       become: yes
       with_items:
       - ethereum
+      - cpp-ethereum
 
     - name: Get JetBrains toolbox
       get_url: url=https://download-cf.jetbrains.com/toolbox/jetbrains-toolbox-1.1.2143.tar.gz dest=~/Installs/jetbrains-toolbox-1.1.2143.tar.gz
