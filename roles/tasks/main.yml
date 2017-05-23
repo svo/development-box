@@ -44,6 +44,8 @@
       - python-pip
       - python-software-properties
       - python-gpgme
+      - python3-dev
+      - cmake
 
     - name: Setup workspaces
       command: gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ {{ item.key }} {{ item.value }}
@@ -172,11 +174,15 @@
       with_items:
       - {repo: "https://github.com/plasticboy/vim-markdown.git", dest: vim-markdown}
       - {repo: "https://github.com/IN3D/vim-raml.git", dest: vim-raml}
+      - {repo: "https://github.com/Valloric/YouCompleteMe.git", dest: YouCompleteMe}
 
     - name: Update vim configuration
       lineinfile: dest=~/.vimrc line="{{ item }}"
       with_items:
       - let g:vim_markdown_folding_style_pythonic = 1
+
+    - name: Install YouCompleteMe
+      shell: ./install.sh chdir=~/.vim/bundle/YouCompleteMe
 
     - name: Download .deb
       get_url: url={{ item.url }} dest=~/Installs/{{ item.name }} checksum={{ item.sha }}
