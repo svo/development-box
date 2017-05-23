@@ -206,7 +206,7 @@
       with_items: "{{ installs }}"
 
     - name: Add ethereum repositories
-      apt_repository: repo={{ item }} update_cache=yes validate_certs=no
+      apt_repository: repo={{ item }} update_cache=yes
       become: yes
       with_items:
       - ppa:ethereum/ethereum
