@@ -290,6 +290,7 @@
       with_items:
       - nvidia-375
       - nvidia-prime
+      - nvidia-cuda-toolkit
 
     - name: Set intel graphics as default
       command: prime-select intel
