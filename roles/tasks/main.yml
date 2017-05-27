@@ -40,12 +40,24 @@
       - build-essential
       - libssl-dev
       - libffi-dev
+      - python3
       - python-dev
       - python-pip
       - python-software-properties
       - python-gpgme
       - python3-dev
       - cmake
+      - libleveldb-dev
+      - libjsoncpp-dev
+      - libjsonrpccpp-dev
+      - libboost-all-dev
+      - libgmp-dev
+      - libreadline-dev
+      - libcurl4-gnutls-dev
+      - ocl-icd-libopencl1
+      - opencl-headers
+      - mesa-common-dev
+      - libmicrohttpd-dev
 
     - name: Setup workspaces
       command: gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ {{ item.key }} {{ item.value }}
@@ -205,20 +217,6 @@
       become: yes
       with_items: "{{ installs }}"
 
-    - name: Add ethereum repositories
-      apt_repository: repo={{ item }} update_cache=yes
-      become: yes
-      with_items:
-      - ppa:ethereum/ethereum
-      - ppa:ethereum/ethereum-qt
-
-    - name: Install ethereum CLI tools
-      apt: pkg={{ item }}
-      become: yes
-      with_items:
-      - ethereum
-      - cpp-ethereum
-
     - name: Get JetBrains toolbox
       get_url: url=https://download-cf.jetbrains.com/toolbox/jetbrains-toolbox-1.1.2143.tar.gz dest=~/Installs/jetbrains-toolbox-1.1.2143.tar.gz
       register: jet_brains_get_url_result
@@ -283,16 +281,70 @@
       - {source: touchegg.conf, destination: ~/.config/touchegg/touchegg.conf}
       - {source: xprofile, destination: ~/.xprofile}
 
-    - name: Install video drivers
-      apt: pkg={{ item }}
-      when: is_nvidia|succeeded and is_laptop|succeeded
+    - name: Download CUDA repository .deb
+      get_url: url=http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_8.0.61-1_amd64.deb dest=~/Installs/cuda-repo-ubuntu1604_8.0.61-1_amd64.deb
+      register: get_deb_result
+      when: is_nvidia|succeeded
+      until: get_deb_result | succeeded
+      retries: 3
+      delay: 1
+
+    - name: Install CUDA repository
+      apt: deb=/tmp/Installs/cuda-repo-ubuntu1604_8.0.61-1_amd64.deb
+      when: is_nvidia|succeeded
       become: yes
-      with_items:
-      - nvidia-375
-      - nvidia-prime
-      - nvidia-cuda-toolkit
+
+    - name: Install CUDA
+      apt: pkg=cuda update_cache=yes
+      become: yes
 
     - name: Set intel graphics as default
       command: prime-select intel
       when: is_intel_graphics|succeeded and is_nvidia|succeeded and is_laptop|succeeded
       become: yes
+
+    - name: Add ethereum repositories
+      apt_repository: repo={{ item }} update_cache=yes
+      become: yes
+      with_items:
+      - ppa:ethereum/ethereum
+
+    - name: Install CryptoPP
+      apt: pkg={{ item }}
+      become: yes
+      with_items:
+      - libcryptopp-utils
+      - libcryptopp-dev
+
+    - name: Install ethereum CLI tools
+      apt: pkg={{ item }}
+      become: yes
+      with_items:
+      - ethereum
+
+    - name: Get cpp-ethereum
+      git: repo=https://github.com/Genoil/cpp-ethereum/ dest=~/cpp-ethereum
+
+    - name: Setup build directory
+      file: path=~/cpp-ethereum/build state=directory
+
+    - name: cmake cpp-ethereum
+      command: cmake -DBUNDLE=cudaminer .. chdir=~/cpp-ethereum/build
+
+    - name: make cpp-ethereum
+      command: make -j8 chdir=~/cpp-ethereum/build
+
+    - name: Get silentarmy
+      git: repo=https://github.com/mbevand/silentarmy.git dest=~/silentarmy force=yes
+
+    - name: Update silentarmy config
+      lineinfile: dest=~/silentarmy/Makefile regexp='{{ item.regexp }}' line='{{ item.line }}'
+      with_items:
+      - {regexp: '^OPENCL_HEADERS', line: 'OPENCL_HEADERS = "/usr/include"'}
+      - {regexp: '^LIBOPENCL', line: 'LIBOPENCL = "/usr/local/cuda-8.0/targets/x86_64-linux/lib"'}
+
+    - name: make silentarmy
+      command: make chdir=~/silentarmy
+
+    - name: make test silentarmy
+      command: make test chdir=~/silentarmy
