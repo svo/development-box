@@ -348,3 +348,15 @@
 
     - name: make test silentarmy
       command: make test chdir=~/silentarmy
+
+    - name: Add Zcash apt key
+      apt_key: url=https://apt.z.cash/zcash.asc
+      become: yes
+
+    - name: Install Zcash repository
+      apt_repository: repo="deb https://apt.z.cash/ jessie main"
+      become: yes
+
+    - name: Install Zcash
+      apt: pkg=zcash update_cache=yes
+      become: yes
