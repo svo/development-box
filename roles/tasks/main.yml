@@ -58,6 +58,8 @@
       - opencl-headers
       - mesa-common-dev
       - libmicrohttpd-dev
+      - libgstreamer0.10-0
+      - libgstreamer-plugins-base0.10-0
 
     - name: Setup workspaces
       command: gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ {{ item.key }} {{ item.value }}
@@ -216,6 +218,14 @@
       apt: deb=/tmp/Installs/{{ item.name }}
       become: yes
       with_items: "{{ installs }}"
+
+    - name: Download .run
+      get_url: url={{ item.url }} dest=~/Installs/{{ item.name }} mode=a+x
+      with_items: "{{ runs }}"
+      register: get_url_result
+      until: get_url_result | succeeded
+      retries: 3
+      delay: 1
 
     - name: Get JetBrains toolbox
       get_url: url=https://download-cf.jetbrains.com/toolbox/jetbrains-toolbox-1.1.2143.tar.gz dest=~/Installs/jetbrains-toolbox-1.1.2143.tar.gz
