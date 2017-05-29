@@ -60,6 +60,10 @@
       - libmicrohttpd-dev
       - libgstreamer0.10-0
       - libgstreamer-plugins-base0.10-0
+      - libxrender1
+      - libxcomposite1
+      - libxslt1-dev
+      - libqrencode-dev
 
     - name: Setup workspaces
       command: gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ {{ item.key }} {{ item.value }}
