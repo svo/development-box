@@ -335,6 +335,7 @@
       become: yes
       with_items:
       - ethereum
+      - ethminer
 
     - name: Get cpp-ethereum
       git: repo=https://github.com/Genoil/cpp-ethereum/ dest=~/cpp-ethereum
