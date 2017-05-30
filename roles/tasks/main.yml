@@ -37,33 +37,36 @@
       apt: pkg={{ item }}
       become: yes
       with_items:
+      - automake
       - build-essential
-      - libssl-dev
-      - libffi-dev
-      - python3
-      - python-dev
-      - python-pip
-      - python-software-properties
-      - python-gpgme
-      - python3-dev
       - cmake
-      - libleveldb-dev
-      - libjsoncpp-dev
-      - libjsonrpccpp-dev
       - libboost-all-dev
-      - libgmp-dev
-      - libreadline-dev
       - libcurl4-gnutls-dev
-      - ocl-icd-libopencl1
-      - opencl-headers
-      - mesa-common-dev
-      - libmicrohttpd-dev
+      - libcurl4-openssl-dev
+      - libffi-dev
+      - libgmp-dev
       - libgstreamer0.10-0
       - libgstreamer-plugins-base0.10-0
-      - libxrender1
-      - libxcomposite1
-      - libxslt1-dev
+      - libjansson-dev
+      - libjsoncpp-dev
+      - libjsonrpccpp-dev
+      - libleveldb-dev
+      - libmicrohttpd-dev
       - libqrencode-dev
+      - libreadline-dev
+      - libssl-dev
+      - libxcomposite1
+      - libxrender1
+      - libxslt1-dev
+      - mesa-common-dev
+      - ocl-icd-libopencl1
+      - opencl-headers
+      - python3
+      - python3-dev
+      - python-dev
+      - python-gpgme
+      - python-pip
+      - python-software-properties
 
     - name: Setup workspaces
       command: gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ {{ item.key }} {{ item.value }}
@@ -313,7 +316,7 @@
       become: yes
 
     - name: Set intel graphics as default
-      command: prime-select intel
+      command: prime-select nvidia
       when: is_intel_graphics|succeeded and is_nvidia|succeeded and is_laptop|succeeded
       become: yes
 
@@ -375,3 +378,9 @@
     - name: Install Zcash
       apt: pkg=zcash update_cache=yes
       become: yes
+
+    - name: Get cpuminer-opt
+      git: repo=https://github.com/JayDDee/cpuminer-opt.git dest=~/cpuminer-opt
+
+    - name: Build
+      command: ./build.sh chdir=~/cpuminer-opt
