@@ -394,3 +394,16 @@
 
     - name: Extract DASH wallet
       unarchive: src=~/Installs/dashcore-0.12.1.5-linux64.tar.gz remote_src=yes dest=~/
+
+    - name: Download Waves wallet
+      get_url: url=https://github.com/wavesplatform/WavesGUI/releases/download/v0.4.23/waves-lite-client-mainnet-v0.4.23.zip dest=~/Installs/waves-lite-client-mainnet-v0.4.23.zip
+      register: waves_get_url_result
+      until: waves_get_url_result | succeeded
+      retries: 3
+      delay: 1
+
+    - name: Create Waves wallet directory
+      file: path=~/waves state=directory
+
+    - name: Extract Waves wallet
+      unarchive: src=~/Installs/waves-lite-client-mainnet-v0.4.23.zip remote_src=yes dest=~/waves
