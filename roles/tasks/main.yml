@@ -380,7 +380,17 @@
       become: yes
 
     - name: Get cpuminer-opt
-      git: repo=https://github.com/JayDDee/cpuminer-opt.git dest=~/cpuminer-opt
+      git: repo=https://github.com/JayDDee/cpuminer-opt.git dest=~/cpuminer-opt force=yes
 
-    - name: Build
+    - name: Build cpuminer
       command: ./build.sh chdir=~/cpuminer-opt
+
+    - name: Get DASH wallet
+      get_url: url=https://www.dash.org/binaries/dashcore-0.12.1.5-linux64.tar.gz dest=~/Installs/dashcore-0.12.1.5-linux64.tar.gz
+      register: dash_get_url_result
+      until: dash_get_url_result | succeeded
+      retries: 3
+      delay: 1
+
+    - name: Extract DASH wallet
+      unarchive: src=~/Installs/dashcore-0.12.1.5-linux64.tar.gz remote_src=yes dest=~/
