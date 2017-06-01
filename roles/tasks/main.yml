@@ -315,9 +315,9 @@
       apt: pkg=cuda update_cache=yes
       become: yes
 
-    - name: Set intel graphics as default
+    - name: Set nVidia graphics as default
       command: prime-select nvidia
-      when: is_intel_graphics|succeeded and is_nvidia|succeeded and is_laptop|succeeded
+      when: is_nvidia|succeeded and is_laptop|succeeded
       become: yes
 
     - name: Add ethereum repositories
