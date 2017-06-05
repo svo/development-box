@@ -394,3 +394,11 @@
 
     - name: Extract DASH wallet
       unarchive: src=~/Installs/dashcore-0.12.1.5-linux64.tar.gz remote_src=yes dest=~/
+
+    - name: Add Minecraft repository
+      apt_repository: repo="ppa:minecraft-installer-peeps/minecraft-installer" update_cache=yes
+      become: yes
+
+    - name: Install Minecraft
+      apt: pkg=minecraft-installer
+      become: yes
