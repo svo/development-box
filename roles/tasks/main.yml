@@ -226,14 +226,6 @@
       become: yes
       with_items: "{{ installs }}"
 
-    - name: Download .run
-      get_url: url={{ item.url }} dest=~/Installs/{{ item.name }} mode=a+x
-      with_items: "{{ runs }}"
-      register: get_url_result
-      until: get_url_result | succeeded
-      retries: 3
-      delay: 1
-
     - name: Get JetBrains toolbox
       get_url: url=https://download-cf.jetbrains.com/toolbox/jetbrains-toolbox-1.1.2143.tar.gz dest=~/Installs/jetbrains-toolbox-1.1.2143.tar.gz
       register: jet_brains_get_url_result
@@ -319,81 +311,6 @@
       command: prime-select nvidia
       when: is_nvidia|succeeded and is_laptop|succeeded
       become: yes
-
-    - name: Add ethereum repositories
-      apt_repository: repo={{ item }} update_cache=yes
-      become: yes
-      with_items:
-      - ppa:ethereum/ethereum
-
-    - name: Install CryptoPP
-      apt: pkg={{ item }}
-      become: yes
-      with_items:
-      - libcryptopp-utils
-      - libcryptopp-dev
-
-    - name: Install ethereum CLI tools
-      apt: pkg={{ item }}
-      become: yes
-      with_items:
-      - ethereum
-      - ethminer
-
-    - name: Get cpp-ethereum
-      git: repo=https://github.com/Genoil/cpp-ethereum/ dest=~/cpp-ethereum
-
-    - name: Setup build directory
-      file: path=~/cpp-ethereum/build state=directory
-
-    - name: cmake cpp-ethereum
-      command: cmake -DBUNDLE=cudaminer .. chdir=~/cpp-ethereum/build
-
-    - name: make cpp-ethereum
-      command: make -j8 chdir=~/cpp-ethereum/build
-
-    - name: Get silentarmy
-      git: repo=https://github.com/mbevand/silentarmy.git dest=~/silentarmy force=yes
-
-    - name: Update silentarmy config
-      lineinfile: dest=~/silentarmy/Makefile regexp='{{ item.regexp }}' line='{{ item.line }}'
-      with_items:
-      - {regexp: '^OPENCL_HEADERS', line: 'OPENCL_HEADERS = "/usr/include"'}
-      - {regexp: '^LIBOPENCL', line: 'LIBOPENCL = "/usr/local/cuda-8.0/targets/x86_64-linux/lib"'}
-
-    - name: make silentarmy
-      command: make chdir=~/silentarmy
-
-    - name: make test silentarmy
-      command: make test chdir=~/silentarmy
-
-    - name: Add Zcash apt key
-      apt_key: url=https://apt.z.cash/zcash.asc
-      become: yes
-
-    - name: Install Zcash repository
-      apt_repository: repo="deb https://apt.z.cash/ jessie main"
-      become: yes
-
-    - name: Install Zcash
-      apt: pkg=zcash update_cache=yes
-      become: yes
-
-    - name: Get cpuminer-opt
-      git: repo=https://github.com/JayDDee/cpuminer-opt.git dest=~/cpuminer-opt force=yes
-
-    - name: Build cpuminer
-      command: ./build.sh chdir=~/cpuminer-opt
-
-    - name: Get DASH wallet
-      get_url: url=https://www.dash.org/binaries/dashcore-0.12.1.5-linux64.tar.gz dest=~/Installs/dashcore-0.12.1.5-linux64.tar.gz
-      register: dash_get_url_result
-      until: dash_get_url_result | succeeded
-      retries: 3
-      delay: 1
-
-    - name: Extract DASH wallet
-      unarchive: src=~/Installs/dashcore-0.12.1.5-linux64.tar.gz remote_src=yes dest=~/
 
     - name: Add Minecraft repository
       apt_repository: repo="ppa:minecraft-installer-peeps/minecraft-installer" update_cache=yes
