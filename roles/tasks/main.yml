@@ -145,6 +145,10 @@
       apt: pkg=subversion
       become: yes
 
+    - name: Install i3 tiling window manager
+      apt: pkg=i3-wm
+      become: yes
+
     - name: Install terminator terminal emulator
       apt: pkg=terminator
       become: yes
