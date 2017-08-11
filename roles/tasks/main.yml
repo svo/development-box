@@ -67,6 +67,7 @@
       - python-gpgme
       - python-pip
       - python-software-properties
+      - rpm
 
     - name: Setup workspaces
       command: gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ {{ item.key }} {{ item.value }}
