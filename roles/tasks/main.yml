@@ -147,7 +147,11 @@
       become: yes
 
     - name: Install i3 tiling window manager
-      apt: pkg=i3-wm
+      apt: pkg={{ item }}
+      with_items:
+      - i3
+      - i3-wm
+      - i3blocks
       become: yes
 
     - name: Install terminator terminal emulator
