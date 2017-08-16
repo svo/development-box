@@ -209,6 +209,7 @@
       - {repo: "https://github.com/plasticboy/vim-markdown.git", dest: vim-markdown}
       - {repo: "https://github.com/IN3D/vim-raml.git", dest: vim-raml}
       - {repo: "https://github.com/Valloric/YouCompleteMe.git", dest: YouCompleteMe}
+      - {repo: "https://github.com/aklt/plantuml-syntax.git", dest: plantuml-syntax}
 
     - name: Update vim configuration
       lineinfile: dest=~/.vimrc line="{{ item }}"
