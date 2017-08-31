@@ -104,7 +104,7 @@
       become: yes
 
     - name: Install Geary email client
-      apt: pkg=geary
+      apt: pkg=geary state=absent
       become: yes
 
     - name: Install chromium web browser
