@@ -103,10 +103,6 @@
       apt: pkg=address-book-app
       become: yes
 
-    - name: Install Geary email client
-      apt: pkg=geary state=absent
-      become: yes
-
     - name: Install chromium web browser
       apt: pkg=chromium-browser
       become: yes
