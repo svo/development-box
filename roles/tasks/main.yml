@@ -325,3 +325,10 @@
     - name: Install Minecraft
       apt: pkg=minecraft-installer
       become: yes
+
+    - name: Setup NFS
+      apt: pkg={{ item }}
+      become: yes
+      with_items:
+      - nfs-kernel-server
+      - nfs-common
