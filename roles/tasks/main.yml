@@ -3,6 +3,10 @@
       register: is_laptop
       ignore_errors: yes
 
+    - name: Install hwinfo
+      apt: pkg=hwinfo
+      become: yes
+
     - name: Determine if nVidia graphics card
       shell: hwinfo --gfxcard | fgrep "Model:" | fgrep -i nvidia
       register: is_nvidia
