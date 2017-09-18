@@ -5,6 +5,7 @@
 
     - environment-core
     - environment-monitoring
+    - environment-security
     - environment-docker
     - environment-configuration-management
     - environment-java

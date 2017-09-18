@@ -22,3 +22,6 @@
 [submodule "roles/environment-configuration-management"]
 	path = roles/environment-configuration-management
 	url = git@github.com:svo/environment-configuration-management.git
+[submodule "roles/environment-security"]
+	path = roles/environment-security
+	url = git@github.com:svo/environment-security.git
