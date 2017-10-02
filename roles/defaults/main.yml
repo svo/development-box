@@ -5,5 +5,5 @@
     - {url: "https://github.com/atom/atom/releases/download/v1.14.1/atom-amd64.deb", name: atom-amd64.deb, sha: "sha256:177733bcb06b71a5ce7137d264dbd5ab4e23aac7dfbd9f0aa9cc5921c3c7bf36"}
     - {url: "https://github.com/saenzramiro/rambox/releases/download/0.5.10/Rambox_0.5.10-x64.deb", name: Rambox_0.5.10-x64.deb, sha: "sha256:a1cd2ccd57f772b7090376c6bdd46a1fd219d3d99914d2671ce9f8243a640c0d"}
     - {url: "http://dbeaver.jkiss.org/files/dbeaver-ce_latest_amd64.deb", name: dbeaver-ce_latest_amd64.deb, sha: "sha256:15a1c95093f804f523fed6bad7002440d7e591f5259208e1e25f77b206dce8d3"}
-    - {url: "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb", name: google-chrome-stable_current_amd64.deb, sha: "sha256:d124c94594364c81149d59d0efcb0cd11c9b4302862e5d8ae8d65b9a526c64e4"}
+    - {url: "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb", name: google-chrome-stable_current_amd64.deb, sha: "sha256:5b8b9655db8dcce4b276db7860ae1c8ce1079a33f161a716c17fda24b8d5a9b2"}
     - {url: "http://fastoredis.com/files/linux/fastoredis-1.6.1-x86_64.deb", name: fastoredis-1.6.1-x86_64.deb, sha: "sha256:3b9e63622c6cfe845b40adc2637b0ff7ebc3879984eb1b43f5dd37a19e1bab0f"}
