@@ -95,6 +95,10 @@
       apt: pkg=gnote
       become: yes
 
+    - name: Install TaskWarrior To-Do
+      apt: pkg=task
+      become: yes
+
     - name: Add Go For It To-Do application repostiory
       apt_repository: repo="ppa:mank319/go-for-it" update_cache=yes
       become: yes
