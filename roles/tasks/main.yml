@@ -301,7 +301,7 @@
       - {source: xprofile, destination: ~/.xprofile}
 
     - name: Download CUDA repository .deb
-      get_url: url=http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_9.0.176-1_amd64.deb dest=~/Installs/cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
+      get_url: url=http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_9.1.85-1_amd64.deb dest=~/Installs/cuda-repo-ubuntu1604_9.1.85-1_amd64.deb
       register: get_deb_result
       when: is_nvidia|succeeded
       until: get_deb_result | succeeded
@@ -309,7 +309,7 @@
       delay: 1
 
     - name: Install CUDA repository
-      apt: deb=/tmp/Installs/cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
+      apt: deb=/tmp/Installs/cuda-repo-ubuntu1604_9.1.85-1_amd64.deb
       when: is_nvidia|succeeded
       become: yes
 
