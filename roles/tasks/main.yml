@@ -344,3 +344,7 @@
     - name: Create remote user SSH directory
       file: path=/home/remote/.ssh state=directory mode=700 owner=remote group=remote
       become: yes
+
+    - name: Install duplicity for backup
+      apt: pkg=duplicity
+      become: yes
