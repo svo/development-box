@@ -2,7 +2,6 @@
     - {url: "http://download.virtualbox.org/virtualbox/5.1.28/virtualbox-5.1_5.1.28-117968~Ubuntu~xenial_amd64.deb", name: virtualbox-5.1_5.1.28-117968~Ubuntu~xenial_amd64.deb, sha: "sha256:932ac743884729a90d7c7e43189b8e989ba2ddb186ccea6ba79982145084a4c9"}
     - {url: "https://releases.hashicorp.com/vagrant/2.0.0/vagrant_2.0.0_x86_64.deb", name: vagrant_2.0.0_x86_64.deb, sha: "sha256:bd54383e8ca2f7d00e06c9afa8bf7221b26abfe89e9ae950c69de2ee97af8aa0"}
     - {url: "https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb", name: dropbox_2015.10.28_amd64.deb, sha: "sha256:f9780cce3725ee307cdad8a835300e89483504059d302b3c6f91fe5cac0a5411"}
-    - {url: "https://github.com/atom/atom/releases/download/v1.14.1/atom-amd64.deb", name: atom-amd64.deb, sha: "sha256:177733bcb06b71a5ce7137d264dbd5ab4e23aac7dfbd9f0aa9cc5921c3c7bf36"}
     - {url: "https://github.com/saenzramiro/rambox/releases/download/0.5.13/Rambox_0.5.13-x64.deb", name: Rambox_0.5.13-x64.deb, sha: "sha256:0dd82d64bd108c859ba0b2ba9927dba630137bce0293a6fbb056f3909d30c52e"}
     - {url: "http://dbeaver.jkiss.org/files/dbeaver-ce_latest_amd64.deb", name: dbeaver-ce_latest_amd64.deb, sha: "sha256:d6734008774add4ff067bd0611b796855259b0ad50a3083a7dd309913e02ae5f"}
     - {url: "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb", name: google-chrome-stable_current_amd64.deb, sha: "sha256:c9e71c9fa76878d25c86538f732d50a7af3544c2b1cd19953a07c3f8d4ec1ca1"}
