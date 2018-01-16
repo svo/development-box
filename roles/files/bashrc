@@ -93,7 +93,3 @@ else \
   # @2 - Prompt when not in GIT repo
   echo " '$Yellow$PathShort$Color_Off'\$ "; \
 fi)'
-
-if [ -f ~/Documents/workspace/aws-idp/adfs_authenticate.sh ]; then
-  source ~/Documents/workspace/aws-idp/adfs_authenticate.sh
-fi

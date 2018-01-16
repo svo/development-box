@@ -1,8 +1,3 @@
-    - name: Determine if laptop
-      command: laptop-detect
-      register: is_laptop
-      ignore_errors: yes
-
     - name: Install hwinfo
       apt: pkg=hwinfo
       become: yes
@@ -12,27 +7,11 @@
       register: is_nvidia
       ignore_errors: yes
 
-    - name: Determine if intel graphics card
-      shell: hwinfo --gfxcard | fgrep "Model:" | fgrep -i intel
-      register: is_intel_graphics
-      ignore_errors: yes
-
-    - name: Determine product name
-      shell: dmidecode -s system-product-name
-      become: yes
-      register: product_name
-
-    - name: Determine bios version
-      shell: dmidecode -s bios-version
-      become: yes
-      register: bios_version
-
     - name: Create home directories
       file: path=~/{{ item }} state=directory
       with_items:
       - Installs
       - .config/terminator
-      - .config/touchegg
 
     - name: Symlink ~/Installs
       file: src=~/Installs dest=/tmp/Installs state=link
@@ -107,10 +86,6 @@
       apt: pkg=go-for-it
       become: yes
 
-    - name: Install Address Book
-      apt: pkg=address-book-app
-      become: yes
-
     - name: Install chromium web browser
       apt: pkg=chromium-browser
       become: yes
@@ -154,8 +129,6 @@
       apt: pkg={{ item }}
       with_items:
       - i3
-      - i3-wm
-      - i3blocks
       become: yes
 
     - name: Install terminator terminal emulator
@@ -278,28 +251,6 @@
       - linux-generic-hwe-16.04
       - xserver-xorg-hwe-16.04
 
-    - name: Install Laptop Mode Tools
-      apt: pkg=laptop-mode-tools
-      when: is_laptop|succeeded
-      become: yes
-
-    - name: Configure Laptop Mode Tools to avoid autosuspend of usbhid
-      lineinfile: dest=/etc/laptop-mode/conf.d/runtime-pm.conf regexp='AUTOSUSPEND_RUNTIME_DEVTYPE_BLACKLIST.*' line='AUTOSUSPEND_RUNTIME_DEVTYPE_BLACKLIST="usbhid"'
-      when: is_laptop|succeeded
-      become: yes
-
-    - name: Install multitouch gesture recognizer
-      apt: pkg=touchegg
-      when: is_laptop|succeeded
-      become: yes
-
-    - name: Copy touchegg configuration
-      copy: src={{ item.source }} dest={{ item.destination }}
-      when: is_laptop|succeeded
-      with_items:
-      - {source: touchegg.conf, destination: ~/.config/touchegg/touchegg.conf}
-      - {source: xprofile, destination: ~/.xprofile}
-
     - name: Download CUDA repository .deb
       get_url: url=http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_9.1.85-1_amd64.deb dest=~/Installs/cuda-repo-ubuntu1604_9.1.85-1_amd64.deb
       register: get_deb_result
@@ -319,15 +270,7 @@
 
     - name: Set nVidia graphics as default
       command: prime-select nvidia
-      when: is_nvidia|succeeded and is_laptop|succeeded
-      become: yes
-
-    - name: Add Minecraft repository
-      apt_repository: repo="ppa:minecraft-installer-peeps/minecraft-installer" update_cache=yes
-      become: yes
-
-    - name: Install Minecraft
-      apt: pkg=minecraft-installer
+      when: is_nvidia|succeeded
       become: yes
 
     - name: Setup NFS
