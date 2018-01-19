@@ -1,8 +1,8 @@
   installs:
     - {url: "http://download.virtualbox.org/virtualbox/5.1.28/virtualbox-5.1_5.1.28-117968~Ubuntu~xenial_amd64.deb", name: virtualbox-5.1_5.1.28-117968~Ubuntu~xenial_amd64.deb, sha: "sha256:932ac743884729a90d7c7e43189b8e989ba2ddb186ccea6ba79982145084a4c9"}
-    - {url: "https://releases.hashicorp.com/vagrant/2.0.0/vagrant_2.0.0_x86_64.deb", name: vagrant_2.0.0_x86_64.deb, sha: "sha256:bd54383e8ca2f7d00e06c9afa8bf7221b26abfe89e9ae950c69de2ee97af8aa0"}
+    - {url: "https://releases.hashicorp.com/vagrant/2.0.1/vagrant_2.0.1_x86_64.deb", name: vagrant_2.0.1_x86_64.deb, sha: "sha256:2f9498a83b3d650fcfcfe0ec7971070fcd3803fad6470cf7da871caf2564d84f"}
     - {url: "https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb", name: dropbox_2015.10.28_amd64.deb, sha: "sha256:f9780cce3725ee307cdad8a835300e89483504059d302b3c6f91fe5cac0a5411"}
     - {url: "https://github.com/saenzramiro/rambox/releases/download/0.5.13/Rambox_0.5.13-x64.deb", name: Rambox_0.5.13-x64.deb, sha: "sha256:0dd82d64bd108c859ba0b2ba9927dba630137bce0293a6fbb056f3909d30c52e"}
-    - {url: "http://dbeaver.jkiss.org/files/dbeaver-ce_latest_amd64.deb", name: dbeaver-ce_latest_amd64.deb, sha: "sha256:d6734008774add4ff067bd0611b796855259b0ad50a3083a7dd309913e02ae5f"}
-    - {url: "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb", name: google-chrome-stable_current_amd64.deb, sha: "sha256:c9e71c9fa76878d25c86538f732d50a7af3544c2b1cd19953a07c3f8d4ec1ca1"}
-    - {url: "http://fastoredis.com/files/linux/fastoredis-1.6.1-x86_64.deb", name: fastoredis-1.6.1-x86_64.deb, sha: "sha256:3b9e63622c6cfe845b40adc2637b0ff7ebc3879984eb1b43f5dd37a19e1bab0f"}
+    - {url: "https://dbeaver.jkiss.org/files/dbeaver-ce_latest_amd64.deb", name: dbeaver-ce_latest_amd64.deb, sha: "sha256:50b222c12cf6381b44fa0353aeecc3d59b6c9323341e181d082ce1ebd76769f2"}
+    - {url: "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb", name: google-chrome-stable_current_amd64.deb, sha: "sha256:75a641accbc368b520b3868ceead4235dd7261e11697d7c31c6231179e3c290f"}
+    - {url: "https://www.fastoredis.com/trial_users_downloads/linux/fastoredis-1.14.1-x86_64.deb", name: fastoredis-1.14.1-x86_64.deb, sha: "sha256:b580a242a608a3fa0f42d53bd0841d2193c9beb3134ae6773e2dc8aff187ecbe"}
