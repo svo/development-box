@@ -1,3 +1,10 @@
+
+    - name: Install build requirements
+      apt: pkg={{ item }}
+      with_items:
+      - cmake
+      become: yes
+
     - name: Install hwinfo
       apt: pkg=hwinfo
       become: yes
@@ -15,42 +22,6 @@
 
     - name: Symlink ~/Installs
       file: src=~/Installs dest=/tmp/Installs state=link
-
-    - name: Install base packages
-      apt: pkg={{ item }}
-      become: yes
-      with_items:
-      - automake
-      - build-essential
-      - cmake
-      - libboost-all-dev
-      - libcurl4-gnutls-dev
-      - libcurl4-openssl-dev
-      - libffi-dev
-      - libgmp-dev
-      - libgstreamer0.10-0
-      - libgstreamer-plugins-base0.10-0
-      - libjansson-dev
-      - libjsoncpp-dev
-      - libjsonrpccpp-dev
-      - libleveldb-dev
-      - libmicrohttpd-dev
-      - libqrencode-dev
-      - libreadline-dev
-      - libssl-dev
-      - libxcomposite1
-      - libxrender1
-      - libxslt1-dev
-      - mesa-common-dev
-      - ocl-icd-libopencl1
-      - opencl-headers
-      - python3
-      - python3-dev
-      - python-dev
-      - python-gpgme
-      - python-pip
-      - python-software-properties
-      - rpm
 
     - name: Setup workspaces
       command: gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ {{ item.key }} {{ item.value }}
@@ -194,7 +165,7 @@
       - let g:vim_markdown_folding_style_pythonic = 1
 
     - name: Install YouCompleteMe
-      shell: ./install.sh chdir=~/.vim/bundle/YouCompleteMe
+      shell: ./install.py chdir=~/.vim/bundle/YouCompleteMe
 
     - name: Download .deb
       get_url: url={{ item.url }} dest=~/Installs/{{ item.name }} checksum={{ item.sha }}
@@ -266,6 +237,7 @@
 
     - name: Install CUDA
       apt: pkg=cuda update_cache=yes
+      when: is_nvidia|succeeded
       become: yes
 
     - name: Set nVidia graphics as default
