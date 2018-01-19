@@ -13,9 +13,6 @@
 [submodule "roles/environment-nodejs"]
 	path = roles/environment-nodejs
 	url = git@github.com:svo/environment-nodejs.git
-[submodule "roles/environment-java"]
-	path = roles/environment-java
-	url = git@github.com:svo/environment-java.git
 [submodule "roles/environment-media"]
 	path = roles/environment-media
 	url = git@github.com:svo/environment-media.git
@@ -25,3 +22,6 @@
 [submodule "roles/environment-security"]
 	path = roles/environment-security
 	url = git@github.com:svo/environment-security.git
+[submodule "roles/environment-openjdk"]
+	path = roles/environment-openjdk
+	url = git@github.com:svo/environment-openjdk.git
