@@ -37,24 +37,12 @@
       apt: pkg=autokey-gtk
       become: yes
 
-    - name: Installing libimobiledevice-utils for iPhone
-      apt: pkg=libimobiledevice-utils
-      become: yes
-
     - name: Install gnote note taking application
       apt: pkg=gnote
       become: yes
 
     - name: Install TaskWarrior To-Do
       apt: pkg=task
-      become: yes
-
-    - name: Add Go For It To-Do application repostiory
-      apt_repository: repo="ppa:mank319/go-for-it" update_cache=yes
-      become: yes
-
-    - name: Install Go For It To-Do application
-      apt: pkg=go-for-it
       become: yes
 
     - name: Install chromium web browser
@@ -94,12 +82,6 @@
 
     - name: Install subversion source control
       apt: pkg=subversion
-      become: yes
-
-    - name: Install i3 tiling window manager
-      apt: pkg={{ item }}
-      with_items:
-      - i3
       become: yes
 
     - name: Install terminator terminal emulator
@@ -244,13 +226,6 @@
       command: prime-select nvidia
       when: is_nvidia|succeeded
       become: yes
-
-    - name: Setup NFS
-      apt: pkg={{ item }}
-      become: yes
-      with_items:
-      - nfs-kernel-server
-      - nfs-common
 
     - name: Create remote user
       user: name=remote
